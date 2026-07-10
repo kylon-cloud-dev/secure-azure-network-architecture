@@ -463,4 +463,4 @@ This project successfully deployed a Terraform-managed secure Azure network arch
 
 The project also included real troubleshooting around Terraform syntax, Azure Firewall Basic requirements, VM SKU capacity, and cleanup of monitoring resources.
 
-This lab strengthened practical skills in Azure networking, cloud security architecture, infrastructure as code, monitoring, and operational troubleshooting.
+Finally, this project strengthened practical skills in Azure networking, cloud security architecture, infrastructure as code, monitoring, and operational troubleshooting.
