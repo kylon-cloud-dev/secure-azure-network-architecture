@@ -194,7 +194,87 @@ terraform apply "tfplan"
 
 ---
 
-## Deployment Evidence
+## Additional Screenshot Evidence
+
+---
+
+## Project Setup Evidence
+
+The project was built locally in VS Code with Terraform configuration files, a README, a screenshots folder, and a `.gitignore` file to prevent sensitive Terraform files from being committed.
+
+![VS Code Project Structure](screenshots/01-vscode-project-structure.png)
+
+The `.gitignore` file was configured to exclude Terraform state files, variable files, plan files, crash logs, and local Terraform folders.
+
+![Gitignore Terraform Secrets](screenshots/02-gitignore-terraform-secrets.png)
+
+Azure CLI was used to confirm the correct subscription context before deployment.
+
+![Azure Subscription Preflight](screenshots/03-azure-subscription-preflight-blurred.png)
+
+Network Watcher was enabled in East US to support network monitoring and diagnostic capabilities.
+
+![Network Watcher Enabled](screenshots/04-network-watcher-enabled-eastus.png)
+
+Before adding the Terraform code, the project folder structure was prepared with the required files.
+
+![Before Terraform Code](screenshots/05-before-terraform-code.png)
+
+---
+
+## Additional Resource Validation
+
+The full resource group view confirmed that all core networking, compute, logging, and firewall resources were deployed.
+
+![Resource Group Overview Bottom](screenshots/12b-resource-group-overview-bottom.png)
+
+The hub VNet contained the required firewall subnet, firewall management subnet, and hub management subnet.
+
+![Hub VNet Subnets](screenshots/13b-hub-vnet-subnets.png)
+
+The hub VNet was peered to both spoke VNets.
+
+![Hub VNet Peerings](screenshots/13c-hub-vnet-peerings.png)
+
+Spoke 1 contained the workload subnet used by the first Linux VM.
+
+![Spoke 1 Subnet](screenshots/14b-spoke1-subnet.png)
+
+Spoke 1 was peered back to the hub VNet.
+
+![Spoke 1 Peering](screenshots/14c-spoke1-peering.png)
+
+Spoke 2 contained the workload subnet used by the second Linux VM.
+
+![Spoke 2 Subnet](screenshots/15b-spoke2-subnet.png)
+
+Spoke 2 was peered back to the hub VNet.
+
+![Spoke 2 Peering](screenshots/15c-spoke2-peering.png)
+
+The Log Analytics workspace was created to collect Azure Firewall diagnostic logs.
+
+![Log Analytics Workspace Overview](screenshots/17-log-analytics-workspace-overview.png)
+
+A storage account was deployed to support flow log and monitoring-related storage.
+
+![Storage Account Flow Logs Overview](screenshots/18-storage-account-flowlogs-overview.png)
+
+---
+
+## Troubleshooting Evidence
+
+During deployment, Azure Firewall Basic initially failed because it required a management IP configuration. This was resolved by adding `AzureFirewallManagementSubnet`, a management public IP, and a `management_ip_configuration` block.
+
+![Terraform Apply Firewall VM Errors](screenshots/11a-terraform-apply-firewall-vm-errors.png)
+
+East US also had VM SKU capacity restrictions. `Standard_B1ms` was unavailable for this subscription and region.
+
+![B1ms Unavailable](screenshots/11c-vm-size-b1ms-unavailable-eastus.png)
+
+`Standard_B2s` was also unavailable, so the VM size was changed to `Standard_D2s_v3`, which allowed the deployment to complete.
+
+![B2s Unavailable](screenshots/11d-vm-size-b2s-unavailable-eastus.png)
 
 ### Terraform Validation
 
